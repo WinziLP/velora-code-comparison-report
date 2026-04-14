@@ -23,6 +23,7 @@ const el = {
   hashTableWrap: document.getElementById("hashTableWrap"),
   diffViewport: document.getElementById("diffViewport"),
   reportHashTables: document.getElementById("reportHashTables"),
+  footerGeneratedAt: document.getElementById("footerGeneratedAt"),
   rowTemplate: document.getElementById("rowTemplate"),
 };
 
@@ -311,6 +312,23 @@ function renderReportHashTables() {
   el.reportHashTables.innerHTML = blocks.join("");
 }
 
+function renderFooterMeta() {
+  if (!el.footerGeneratedAt) return;
+  const raw = state.data?.generated_at_utc;
+  const parsed = raw ? new Date(raw) : null;
+  if (!parsed || Number.isNaN(parsed.getTime())) {
+    el.footerGeneratedAt.textContent = "Last updated: -";
+    return;
+  }
+
+  const formatted = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "UTC",
+  }).format(parsed);
+  el.footerGeneratedAt.textContent = `Last updated: ${formatted} UTC`;
+}
+
 async function loadData() {
   if (window.__COMPARISON_DATA__) return window.__COMPARISON_DATA__;
   const response = await fetch("data/comparison-data.json", { cache: "no-store" });
@@ -369,6 +387,7 @@ async function init() {
   renderSummary();
   renderSortLabel();
   renderReportHashTables();
+  renderFooterMeta();
 
   ensureSelectedEntryInScope();
   renderFileList();
