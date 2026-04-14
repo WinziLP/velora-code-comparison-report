@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Velora.Bot Comparison Report</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-left">
+        <strong class="topbar-title">Technical Comparison Report</strong>
+      </div>
+
+      <div class="topbar-right">
+        <div class="theme-panel" aria-label="Theme selector">
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Toggle theme">
+            <svg aria-hidden="true" class="tt tt--classic" viewBox="0 0 24 24">
+              <defs>
+                <mask id="report-theme-mask">
+                  <rect x="0" y="0" width="24" height="24" fill="#fff"></rect>
+                  <circle class="tt__moon" cx="12" cy="12" r="6" fill="#000"></circle>
+                </mask>
+              </defs>
+              <g class="tt__sun-wrap">
+                <circle class="tt__sun" cx="12" cy="12" r="6" mask="url(#report-theme-mask)"></circle>
+              </g>
+              <g class="tt__rays">
+                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                <line x1="4.8" y1="4.8" x2="6.6" y2="6.6"></line>
+                <line x1="17.4" y1="17.4" x2="19.2" y2="19.2"></line>
+                <line x1="4.8" y1="19.2" x2="6.6" y2="17.4"></line>
+                <line x1="17.4" y1="6.6" x2="19.2" y2="4.8"></line>
+              </g>
+            </svg>
+            <span class="sr-only">Toggle theme</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="shell-body">
+      <main class="main-content">
+        <section class="hero">
+          <div class="hero-head">
+            <div class="hero-copy">
+              <h1>Technical Comparison Report</h1>
+              <p class="subtitle">Left: <strong>Velora.Bot by Streamerforge</strong> | Right: <strong>New plugin from Velora</strong></p>
+              <p class="summary-copy">
+                Line-by-line code comparison with hash-based verification. This report focuses on transparent evidence:
+                what was removed, what was added, and what was modified.
+              </p>
+            </div>
+          </div>
+
+          <div class="hero-grid">
+            <div class="stats-panel">
+              <div id="methodCounters" class="method-counters"></div>
+              <div id="summaryCards" class="summary-cards"></div>
+              <p id="summaryScopeNote" class="summary-scope-note"></p>
+            </div>
+
+            <div class="source-strip">
+              <h2>Source References</h2>
+              <div class="source-links">
+                <a href="https://github.com/WinziLP/velora-bot" target="_blank" rel="noopener noreferrer">
+                  Streamerforge GitHub
+                  <i data-lucide="external-link"></i>
+                </a>
+                <a href="https://discord.com/invite/VeloraTV" target="_blank" rel="noopener noreferrer">
+                  Velora Discord
+                  <i data-lucide="external-link"></i>
+                </a>
+              </div>
+              <p>The compared files are not redistributed here.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="legend-note-grid">
+          <article class="legend-card">
+            <h2>Color Legend</h2>
+            <div class="legend-grid">
+              <div class="legend-item">
+                <div class="legend-preview legend-preview-added">Addition / Match</div>
+                <p>The line exists in both versions with equal logic and content.</p>
+              </div>
+              <div class="legend-item">
+                <div class="legend-preview legend-preview-modified">Modified</div>
+                <p>Both sides contain code at the same position, but the implementation changed.</p>
+              </div>
+              <div class="legend-item">
+                <div class="legend-preview legend-preview-removed">Removed From Left</div>
+                <p>Code existed in the original left-side source and is missing on the right side.</p>
+              </div>
+              <div class="legend-item">
+                <div class="legend-preview legend-preview-equal">Unchanged</div>
+                <p>The compared line is functionally and textually unchanged.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="note-card">
+            <h2>Forensic Interpretation</h2>
+            <p>
+              A high percentage of equal lines indicates structural and functional overlap.
+              Added lines on the right usually indicate wrappers, endpoint replacements, or branding adjustments around inherited logic.
+            </p>
+            <p>
+              Removed lines on the left indicate functionality no longer present in the right-side artifact.
+              Hashes are shown side-by-side per file: matching hashes indicate byte-identical or line-normalized-identical content.
+            </p>
+            <p>
+              For fairness and precision, whitespace-only rows are excluded from changed-line metrics.
+              In this report, a changed line always refers to meaningful code, not blank-line movement.
+            </p>
+          </article>
+        </section>
+
+        <section class="workspace-shell">
+          <div class="layout">
+            <aside class="sidebar">
+              <div class="sidebar-controls">
+                <label for="fileSearch">Search files</label>
+                <input id="fileSearch" type="search" placeholder="Type file name...">
+                <button id="sortChangedBtn" class="sort-btn" type="button">
+                  <i data-lucide="arrow-down-up"></i>
+                  <span id="sortChangedLabel">Changed lines: high to low</span>
+                </button>
+              </div>
+              <div id="fileList" class="file-list"></div>
+            </aside>
+
+            <section class="content">
+              <div class="content-header">
+                <h2 id="selectedFileTitle">Select a file</h2>
+                <label class="toggle">
+                  <input id="changedOnlyToggle" type="checkbox">
+                  <span>Show changed lines only</span>
+                </label>
+              </div>
+
+              <section class="hash-panel">
+                <h3>Hash Comparison</h3>
+                <div id="hashTableWrap"></div>
+              </section>
+
+              <section class="diff-panel">
+                <div class="diff-head">
+                  <div>Velora.Bot by Streamerforge</div>
+                  <div>New plugin from Velora</div>
+                </div>
+                <div id="diffViewport" class="diff-viewport"></div>
+              </section>
+            </section>
+          </div>
+        </section>
+
+        <section class="external-hash-section">
+          <div class="ledger-head">
+            <h2>Hash Consistency Ledger</h2>
+            <span>Verification: Data-driven</span>
+          </div>
+          <p>
+            These are the side-by-side hash tables from the evidence report attachments.
+            They provide independent checksum references in addition to the per-file technical diff above.
+          </p>
+          <div id="reportHashTables"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <template id="rowTemplate">
+    <div class="diff-row">
+      <div class="ln ln-left"></div>
+      <pre class="code code-left"></pre>
+      <div class="ln ln-right"></div>
+      <pre class="code code-right"></pre>
+    </div>
+  </template>
+
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="data/comparison-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
